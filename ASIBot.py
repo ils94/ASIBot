@@ -36,7 +36,17 @@ def iniciar_bot():
 
 
 root = Tk()
-root.geometry("250x250")
+
+janela_width = 250
+janela_height = 250
+
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+x = (screen_width / 2) - (janela_width / 2)
+y = (screen_height / 2) - (janela_height / 2)
+
+root.geometry("250x250+" + str(int(x)) + "+" + str(int(y)))
 root.title("ASIBot")
 root.iconbitmap("icones/bot.ico")
 root.resizable(False, False)
