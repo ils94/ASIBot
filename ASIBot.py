@@ -21,7 +21,7 @@ def iniciar_bot():
     patrimonio_list.remove("")
 
     while contador >= 0:
-        contagem_regressiva["text"] = contador
+        contagem_regressiva["text"] = "Bot iniciando em: " + str(contador)
         contador = contador - 1
         time.sleep(1)
 
