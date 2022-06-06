@@ -20,7 +20,7 @@ def iniciar_bot():
     patrimonio_list = patrimonios.get("1.0", END).split("\n")
     patrimonio_list.remove("")
 
-    while contador >= 0:
+    while contador > 0:
         contagem_regressiva["text"] = "Bot iniciando em: " + str(contador)
         contador = contador - 1
         time.sleep(1)
