@@ -28,6 +28,10 @@ def iniciar_bot():
     contagem_regressiva["text"] = "Bot Iniciado."
 
     for index in patrimonio_list:
+
+        if len(index) == 10:
+            index = index[2:]
+
         pyautogui.typewrite(index)
         pyautogui.press("Tab")
 
