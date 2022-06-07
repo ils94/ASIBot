@@ -1,3 +1,4 @@
+import re
 from tkinter import Tk, Button, Text, Label, END
 import threading
 import time
@@ -16,6 +17,14 @@ def iniciar_bot():
     contador = 3
 
     iniciar["state"] = "disabled"
+
+    filtrar = re.sub("[^0-9\n\\s]", "", patrimonios.get("1.0", END)).replace(" ", "\n")
+
+    filtrar = "\n".join([ll.rstrip() for ll in filtrar.splitlines() if ll.strip()])
+
+    patrimonios.delete("1.0", END)
+
+    patrimonios.insert("1.0", filtrar)
 
     patrimonio_list = patrimonios.get("1.0", END).split("\n")
     patrimonio_list.remove("")
@@ -62,7 +71,7 @@ patrimonios.pack(padx=5, pady=5)
 iniciar = Button(root, text="Iniciar", width=10, height=1, command=lambda: multithreading(iniciar_bot))
 iniciar.pack(pady=5)
 
-contagem_regressiva = Label(root, text="Contagem Regressiva...", width=20, height=1)
+contagem_regressiva = Label(root, text="Preencha o campo a cima\ne click em Iniciar.", width=20, height=2)
 contagem_regressiva.pack(pady=5)
 
 root.mainloop()
