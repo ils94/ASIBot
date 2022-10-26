@@ -42,8 +42,6 @@ def bot():
 
     aviso.config(text="Operação Concluída.")
 
-    patrimonios.delete("1.0", END)
-
 
 def iniciar_bot(event):
     if keyboard.is_pressed("shift"):
