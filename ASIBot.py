@@ -1,5 +1,5 @@
 import re
-from tkinter import Tk, Text, Label, END
+from tkinter import Tk, Text, Label, END, Checkbutton, IntVar, LEFT, Frame, X
 import threading
 import time
 import keyboard
@@ -34,7 +34,11 @@ def bot():
             index = index[2:]
 
         pyautogui.typewrite(index)
-        pyautogui.press("Tab")
+
+        if check.get() == 1:
+            pyautogui.press("Enter")
+        else:
+            pyautogui.press("Tab")
 
     aviso.config(text="Operação Concluída.")
 
@@ -58,7 +62,7 @@ screen_height = root.winfo_screenheight()
 x = (screen_width / 2) - (janela_width / 2)
 y = (screen_height / 2) - (janela_height / 2)
 
-root.geometry("250x250+" + str(int(x)) + "+" + str(int(y)))
+root.geometry("250x270+" + str(int(x)) + "+" + str(int(y)))
 root.title("ASIBot")
 root.iconbitmap("icones/bot.ico")
 root.resizable(False, False)
@@ -66,6 +70,13 @@ root.attributes("-topmost", True)
 
 patrimonios = Text(root, height=13)
 patrimonios.pack(padx=5, pady=5)
+
+frame = Frame(root)
+frame.pack(fill=X)
+
+check = IntVar()
+checkbutton = Checkbutton(frame, text="Usar ENTER", variable=check)
+checkbutton.pack(side=LEFT, padx=5)
 
 aviso = Label(root, text="...", width=20, height=1)
 aviso.pack(pady=5)
