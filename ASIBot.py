@@ -17,6 +17,8 @@ def multithreading(funcao):
 def bot():
     global patrimonio_list
 
+    counter = 0
+
     if check_tab11.get() == 0:
         filtrar = re.sub("[^0-9\n\\s]", "", patrimonios.get("1.0", END)).replace(" ", "\n")
 
@@ -26,26 +28,38 @@ def bot():
 
         patrimonios.insert("1.0", filtrar)
 
-    patrimonios.insert("1.0", patrimonios.get("1.0", END).replace(" ", ""))
+    filtrar_espacos = patrimonios.get("1.0", END).replace(" ", "")
+
+    patrimonios.delete("1.0", END)
+
+    patrimonios.insert("1.0", filtrar_espacos)
+
     patrimonio_list = patrimonios.get("1.0", END).split("\n")
-    patrimonio_list.remove("")
+
+    while "" in patrimonio_list:
+        patrimonio_list.remove("")
 
     aviso.config(text="Bot Iniciado.")
 
     for index in patrimonio_list:
 
-        if len(index) == 10:
-            index = index[2:]
+        if check_tab11.get() == 0:
+            if len(index) == 10:
+                index = index[2:]
 
         pyautogui.typewrite(index)
 
-        if check_enter.get() == 1:
-            pyautogui.press("Enter")
-        elif check_tab11.get() == 1:
-            for key in range(11):
+        counter = counter + 1
+
+        if counter < len(patrimonio_list):
+
+            if check_enter.get() == 1:
+                pyautogui.press("Enter")
+            elif check_tab11.get() == 1:
+                for i in range(11):
+                    pyautogui.press("Tab")
+            else:
                 pyautogui.press("Tab")
-        else:
-            pyautogui.press("Tab")
 
     aviso.config(text="Operação Concluída.")
 
