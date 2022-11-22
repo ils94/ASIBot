@@ -9,20 +9,24 @@ patrimonio_list = []
 
 
 def multithreading(funcao):
-    threading.Thread(target=funcao).start()
+    t = threading.Thread(target=funcao)
+    t.setDaemon(True)
+    t.start()
 
 
 def bot():
     global patrimonio_list
 
-    filtrar = re.sub("[^0-9\n\\s]", "", patrimonios.get("1.0", END)).replace(" ", "\n")
+    if check_tab11.get() == 0:
+        filtrar = re.sub("[^0-9\n\\s]", "", patrimonios.get("1.0", END)).replace(" ", "\n")
 
-    filtrar = "\n".join([ll.rstrip() for ll in filtrar.splitlines() if ll.strip()])
+        filtrar = "\n".join([ll.rstrip() for ll in filtrar.splitlines() if ll.strip()])
 
-    patrimonios.delete("1.0", END)
+        patrimonios.delete("1.0", END)
 
-    patrimonios.insert("1.0", filtrar)
+        patrimonios.insert("1.0", filtrar)
 
+    patrimonios.insert("1.0", patrimonios.get("1.0", END).replace(" ", ""))
     patrimonio_list = patrimonios.get("1.0", END).split("\n")
     patrimonio_list.remove("")
 
@@ -35,8 +39,11 @@ def bot():
 
         pyautogui.typewrite(index)
 
-        if check.get() == 1:
+        if check_enter.get() == 1:
             pyautogui.press("Enter")
+        elif check_tab11.get() == 1:
+            for key in range(11):
+                pyautogui.press("Tab")
         else:
             pyautogui.press("Tab")
 
@@ -72,9 +79,13 @@ patrimonios.pack(padx=5, pady=5)
 frame = Frame(root)
 frame.pack(fill=X)
 
-check = IntVar()
-checkbutton = Checkbutton(frame, text="Usar ENTER", variable=check)
-checkbutton.pack(side=LEFT, padx=5)
+check_enter = IntVar()
+check_button_enter = Checkbutton(frame, text="Usar ENTER", variable=check_enter)
+check_button_enter.pack(side=LEFT, padx=5)
+
+check_tab11 = IntVar()
+check_button_tab11 = Checkbutton(frame, text="Usar TAB11", variable=check_tab11)
+check_button_tab11.pack(side=LEFT, padx=5)
 
 aviso = Label(root, text="...", width=20, height=1)
 aviso.pack(pady=5)
