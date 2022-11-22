@@ -1,5 +1,5 @@
 # ASIBot
-Bot simples para o TRE ASIWeb para inserir patrimonios automaticamente
+Bot simples para utilizar no ASIWeb do TRE
 
 # Como usar
 
